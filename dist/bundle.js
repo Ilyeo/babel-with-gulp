@@ -4,7 +4,22 @@
 var Post = {
   findAll: function findAll() {
     return new Promise(function (resolve, reject) {
-      resolve("ok posts!");
+      var uri = "http://localhost:3000/posts";
+      var request = new XMLHttpRequest();
+
+      request.open("GET", uri, true);
+
+      request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+          resolve(JSON.parse(request.response));
+        }
+      };
+
+      request.onerror = function () {
+        reject(new Error("Houston we have an error on the API"));
+      };
+
+      request.send();
     });
   }
 };
@@ -15,6 +30,8 @@ var ui = {
   }
 };
 
-Post.findAll().then(ui.renderPosts);
+Post.findAll().then(ui.renderPosts).catch(function (error) {
+  console.log(error);
+});
 
 },{}]},{},[1]);
