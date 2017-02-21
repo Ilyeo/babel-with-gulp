@@ -10,6 +10,17 @@ let ui = {
     });
 
     target.innerHTML = elements.join("");
+  },
+
+  renderUsers(users){
+    let target = document.querySelector(".sidebar-content");
+
+    let elements = users.map( (user) => {
+      let { name, avatar } = user;
+      return userTag(name, avatar);
+    });
+
+    target.innerHTML = elements.join("");
   }
 }
 
@@ -26,6 +37,19 @@ function articleTag(title, lastReply){
         last reply on ${safeLastReply}
       </p>
     </article>`;
+
+  return template;
+}
+
+function userTag(name, avatar){
+  let safeName = xss.inHTMLData(name);
+  let safeAvatar = xss.inHTMLData(avatar);
+
+  let template = `
+    <div class='active-avatar'>
+      <img width="54" src="assets/images/${safeAvatar}" />
+      <h5 class='post-author'>${safeName}</h5>
+    </div>`;
 
   return template;
 }
