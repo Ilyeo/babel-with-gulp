@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "In hybrid moments, give me a moment",
-      "lastReply": "1997-07-15"
+      "lastReply": "<img src=x onerror=\"alert('XSS Attack')\">"
     },
     {
       "id": 2,

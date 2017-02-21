@@ -1,3 +1,5 @@
+import xss from "xss-filters";
+
 let ui = {
   renderPosts(posts){
     let target = document.querySelector(".container");
@@ -12,13 +14,16 @@ let ui = {
 }
 
 function articleTag(title, lastReply){
+  let safeTitle = xss.inHTMLData(title);
+  let safeLastReply = xss.inHTMLData(lastReply);
+
   let template = `
     <article class='post'>
       <h2 class='post-title'>
-        ${title}
+        ${safeTitle}
       </h2>
       <p class='post-meta'>
-        last reply on ${lastReply}
+        last reply on ${safeLastReply}
       </p>
     </article>`;
 
